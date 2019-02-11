@@ -1,0 +1,11 @@
+mat-card-content, mat-card-title, mat-card {
+    text-align: center;
+}
+
+mat-card {
+    padding: 20px;
+}
+
+.welcome {
+    text-align: center;
+}
