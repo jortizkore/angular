@@ -1,0 +1,27 @@
+<section fxFlex fxFlex fxLayoutAlign='center'>
+  
+  <form #f='ngForm' (ngSubmit)='onSubmit(f)' fxFlex >
+
+  <mat-card fxFlex fxLayout='column' fxLayoutGap='30px'>
+    <mat-card-title fxLayoutAlign='center center'
+      >Begin to train!</mat-card-title>
+  
+    <mat-card-content fxLayoutAlign='center'>
+      <mat-form-field>
+        <mat-select placeholder='Select an exercise'>
+          <mat-option value='Jumping jacks'>Jumping jacks</mat-option>
+          <mat-option value='Squats'>Squats</mat-option>
+          <mat-option value='Planks'>Planks</mat-option>
+          <mat-option value='Push ups'>Push ups</mat-option>
+          <mat-option value='Crunchs'>Crunchs</mat-option>
+          <mat-option value='Touch toes'>Touch toes</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+  
+    <mat-card-actions fxLayoutAlign='center center'>
+      <button type='submit' mat-raised-button color='primary'>Begin</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+</section>
