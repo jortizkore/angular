@@ -17,7 +17,7 @@ export class NewTrainingComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    if(form.valid) {
+    if (form.valid) {
       this.BeginExercise.emit();
       console.log(form);
     }

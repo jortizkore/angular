@@ -8,4 +8,4 @@
     </mat-tab>
   </mat-tab-group>
 </section>
-<app-current-training *ngIf='onTraining'></app-current-training>
+<app-current-training *ngIf='onTraining' (stopTraining)="onStopTraining()"></app-current-training>
