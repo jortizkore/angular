@@ -1,4 +1,9 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
+export interface DialogData {
+  progress: number;
+}
 
 @Component({
   selector: 'app-current-training',
@@ -6,12 +11,11 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./current-training.component.css']
 })
 export class CurrentTrainingComponent implements OnInit {
-
   progress = 0;
   interval: number;
-  @Output() stopTraining = new EventEmitter;
+  @Output() stopTraining = new EventEmitter();
 
-  constructor() { }
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit() {
     this.interval = setInterval(() => {
@@ -22,9 +26,30 @@ export class CurrentTrainingComponent implements OnInit {
     }, 1000);
   }
   onStopTraining() {
-    this.progress = 0;
     clearInterval(this.interval);
-    this.stopTraining.emit();
+    this.openStopDialog();
+    // this.stopTraining.emit();
   }
 
+  openStopDialog() {
+    const dialogref = this.dialog.open(StopTrainingDialog, {
+      width: '300px',
+      data: { progress: this.progress }
+    });
+  }
+}
+
+@Component({
+  selector: 'app-stop-training-dialog',
+  templateUrl: 'stop-training-dialog.html'
+})
+// tslint:disable-next-line:component-class-suffix
+export class StopTrainingDialog {
+  progress: number;
+  constructor(
+    dialogref: MatDialogRef<StopTrainingDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
+  ) {
+    this.progress = data.progress;
+  }
 }
