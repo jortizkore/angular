@@ -12,6 +12,7 @@
   ></mat-progress-spinner>
   <h2>{{ progress }}%</h2>
   <p>You are week man, You should be better</p>
-  <button mat-raised-button color="warn" (click)="onStopTraining()">Stop</button>
+  <button mat-raised-button color="warn" *ngIf="!exCompleted" (click)="openStopDialog()">Stop</button>
+  <button mat-raised-button color="warn" *ngIf="exCompleted" (click)="StopTraining()">Exit</button>
 </form>
 </section>

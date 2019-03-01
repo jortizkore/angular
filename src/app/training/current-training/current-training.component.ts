@@ -1,5 +1,6 @@
-import { Component, OnInit, EventEmitter, Output, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { StopTrainingDialog } from './StopTrainingDialog';
 
 export interface DialogData {
   progress: number;
@@ -12,44 +13,46 @@ export interface DialogData {
 })
 export class CurrentTrainingComponent implements OnInit {
   progress = 0;
-  interval: number;
+  interval: any;
+  exCompleted: boolean;
+
   @Output() stopTraining = new EventEmitter();
 
   constructor(public dialog: MatDialog) {}
 
   ngOnInit() {
+    this.startOrResumeExercise();
+  }
+
+  startOrResumeExercise() {
     this.interval = setInterval(() => {
       this.progress = this.progress + 1;
+      this.exCompleted = false;
       if (this.progress >= 100) {
         clearInterval(this.interval);
+        this.exCompleted = true;
       }
     }, 1000);
   }
-  onStopTraining() {
+
+  StopTraining() {
     clearInterval(this.interval);
-    this.openStopDialog();
-    // this.stopTraining.emit();
+    this.stopTraining.emit();
   }
 
   openStopDialog() {
+    clearInterval(this.interval);
     const dialogref = this.dialog.open(StopTrainingDialog, {
       width: '300px',
       data: { progress: this.progress }
     });
-  }
-}
 
-@Component({
-  selector: 'app-stop-training-dialog',
-  templateUrl: 'stop-training-dialog.html'
-})
-// tslint:disable-next-line:component-class-suffix
-export class StopTrainingDialog {
-  progress: number;
-  constructor(
-    dialogref: MatDialogRef<StopTrainingDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {
-    this.progress = data.progress;
+    dialogref.afterClosed().subscribe(result => {
+      if (result) {
+        this.StopTraining();
+      } else {
+        this.startOrResumeExercise();
+      }
+    });
   }
 }
