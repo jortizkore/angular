@@ -1,9 +1,9 @@
-import { Component, OnInit, EventEmitter, Output } from "@angular/core";
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: "app-training",
-  templateUrl: "./training.component.html",
-  styleUrls: ["./training.component.css"]
+  selector: 'app-training',
+  templateUrl: './training.component.html',
+  styleUrls: ['./training.component.css']
 })
 export class TrainingComponent implements OnInit {
   onTraining = false;
@@ -17,7 +17,7 @@ export class TrainingComponent implements OnInit {
     this.onTraining = true;
   }
 
-  stop() {
-    
+  onStopTraining() {
+    this.onTraining = false;
   }
 }

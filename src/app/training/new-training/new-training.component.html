@@ -9,12 +9,7 @@
     <mat-card-content fxLayoutAlign='center'>
       <mat-form-field>
         <mat-select placeholder='Select an exercise'>
-          <mat-option value='Jumping jacks'>Jumping jacks</mat-option>
-          <mat-option value='Squats'>Squats</mat-option>
-          <mat-option value='Planks'>Planks</mat-option>
-          <mat-option value='Push ups'>Push ups</mat-option>
-          <mat-option value='Crunchs'>Crunchs</mat-option>
-          <mat-option value='Touch toes'>Touch toes</mat-option>
+          <mat-option *ngFor="let ex of availableTrainings" value="ex.trainingName">{{ex.trainingName}}</mat-option>
         </mat-select>
       </mat-form-field>
     </mat-card-content>
